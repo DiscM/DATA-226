@@ -1,0 +1,20 @@
+name: session_analytics
+version: "1.0.0"
+config-version: 2
+profile: session_analytics
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+test-paths: ["tests"]
+
+seeds:
+  session_analytics:
+    +quote_columns: true
+
+models:
+  session_analytics:
+    transform:
+      +materialized: ephemeral
+    analytics:
+      +materialized: table

@@ -1,0 +1,23 @@
+# profiles.yml
+# Uses environment variables so no credentials are stored in this file.
+# Set these before running dbt:
+#   export DBT_SNOWFLAKE_ACCOUNT=<your_account_identifier>   e.g. xy12345.us-east-1
+#   export DBT_SNOWFLAKE_USER=<your_snowflake_username>
+#   export DBT_SNOWFLAKE_ROLE=<your_role>                    e.g. SYSADMIN
+#   export DBT_SNOWFLAKE_DATABASE=<target_database>          e.g. ANALYTICS
+#   export DBT_SNOWFLAKE_WAREHOUSE=<warehouse>               e.g. COMPUTE_WH
+#   export DBT_SNOWFLAKE_SCHEMA=<target_schema>              e.g. SESSION_ANALYTICS
+
+session_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('DBT_SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('DBT_SNOWFLAKE_USER') }}"
+      role: "{{ env_var('DBT_SNOWFLAKE_ROLE') }}"
+      database: "{{ env_var('DBT_SNOWFLAKE_DATABASE') }}"
+      warehouse: "{{ env_var('DBT_SNOWFLAKE_WAREHOUSE') }}"
+      schema: "{{ env_var('DBT_SNOWFLAKE_SCHEMA') }}"
+      authenticator: externalbrowser
+      threads: 4

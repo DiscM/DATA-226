@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: session_summary
+    description: >
+      One row per session joining channel attribution with session timestamps.
+      Includes computed duration in seconds.
+    columns:
+      - name: sessionId
+        description: Unique identifier for each session.
+        # These quote-aware generic tests preserve Snowflake's camelCase identifier.
+        tests:
+          - unique_quoted
+          - not_null_quoted
+      - name: userId
+        description: Identifier of the user who initiated the session.
+        tests:
+          - not_null_quoted
+      - name: channel
+        description: Marketing channel the session is attributed to.
+        tests:
+          - not_null_quoted
+      - name: startTimestamp
+        description: When the session started (UTC).
+        tests:
+          - not_null_quoted
+      - name: endTimestamp
+        description: When the session ended (UTC).
+        tests:
+          - not_null_quoted
+      - name: durationSeconds
+        description: Length of the session in seconds (endTimestamp - startTimestamp).
+        tests:
+          - not_null_quoted
+
+  - name: user_session_channel
+    description: >
+      Ephemeral transform that selects session-to-channel mappings from the seed
+      (swap to a source ref for production).
+    columns:
+      - name: sessionId
+        tests:
+          - unique_quoted
+          - not_null_quoted
+
+  - name: session_timestamp
+    description: >
+      Ephemeral transform that selects session start/end timestamps from the seed
+      (swap to a source ref for production).
+    columns:
+      - name: sessionId
+        tests:
+          - unique_quoted
+          - not_null_quoted

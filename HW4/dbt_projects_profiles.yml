@@ -1,0 +1,14 @@
+# Target used by Cortex Code's Snowflake-managed dbt runner.
+# Account and user are taken from the active Cortex Code Snowflake connection.
+session_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: ""
+      user: ""
+      role: ACCOUNTADMIN
+      warehouse: SNOWFLAKE_LEARNING_WH
+      database: SNOWFLAKE_LEARNING_DB
+      schema: SESSION_ANALYTICS
+      threads: 4
